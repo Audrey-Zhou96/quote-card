@@ -12,6 +12,13 @@
 
 ---
 
+## 拿到代码
+
+```bash
+git clone https://github.com/Audrey-Zhou96/quote-card.git
+cd quote-card
+```
+
 ## 先装依赖
 
 需要 **Python 3.9+**，然后：
