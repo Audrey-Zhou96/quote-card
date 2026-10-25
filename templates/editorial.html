@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* EDItORIAL — magazine spread. Hairline rules, small caps kicker, quote set
+   large and ragged. Reads cleanly as a video because the rules anchor it. */
+
+#stage::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:var(--bg-grad, linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%));
+}
+#bg{ z-index:1; }
+
+#body{ display:flex; flex-direction:column; }
+
+.masthead{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding-bottom:22px;border-bottom:2px solid var(--rule);
+  font-family:var(--font-meta);
+}
+#kicker{
+  font-size:22px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+}
+.masthead .idx{
+  font-size:20px;letter-spacing:.18em;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;
+}
+
+#quoteWrap{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;justify-content:center;
+}
+/* The short accent rule is the default. A job can ask for the big quote mark
+   in the corner instead (“showQuoteMark”) — the house rule is that a card
+   announcing itself with a giant “ reads as dated, so it stays opt-in. */
+#mark{
+  display:block;
+  width:96px;height:6px;
+  background:var(--accent);
+  margin-bottom:44px;
+}
+
+#quote{
+  /* the panel's own padding comes from base.css — don't override it here */
+  margin:56px 0;
+  /* CJK display quotes breathe more than the Latin default */
+  line-height:1.52;
+}
+
+.colophon{
+  border-top:2px solid var(--rule);
+  padding-top:24px;
+  display:flex;flex-direction:column;gap:10px;
+}
+#speaker{
+  font-size:34px;font-weight:700;color:var(--on-field, var(--ink));
+  letter-spacing:.02em;
+}
+#speaker::before{
+  /* em-dash attribution, the magazine convention */
+  content:"——";color:var(--accent);margin-right:6px;font-weight:400;
+}
+#title{ font-size:24px;color:var(--ink-soft);letter-spacing:.04em;padding-left:0;margin-top:8px;opacity:.85; }
+
+#bar{ height:8px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div id="body">
+    <div class="masthead">
+      <img id="logo" class="logo" alt="">
+      <div id="kicker"></div>
+      <div class="idx">01</div>
+    </div>
+
+    <div id="quoteWrap">
+      <div id="mark"></div>
+      <div id="quote"></div>
+    </div>
+
+    <div class="colophon">
+      <div id="speaker"></div>
+      <div id="title"></div>
+    </div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

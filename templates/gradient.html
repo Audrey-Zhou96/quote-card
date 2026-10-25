@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* GRADIENT — soft mesh ground, solid text.
+   Deliberately NOT gradient-filled text: clipping a gradient to a long CJK
+   paragraph is a real repaint cost, and the fill fights the glyph edges.
+   Gradient goes in the background, where it does the work for free. */
+
+#bg{ display:none; }
+
+/* Mesh via stacked radial blobs — cheaper to paint than a long linear ramp
+   and gives the soft, non-directional falloff that reads as "modern". */
+#stage{
+  background:var(--bg);
+  isolation:isolate;
+}
+#stage::before{
+  content:"";position:absolute;inset:-15%;z-index:0;
+  background:
+    radial-gradient(70% 55% at 20% 10%,  var(--mesh1) 0%, transparent 70%),
+    radial-gradient(75% 60% at 86% 22%,  var(--mesh2) 0%, transparent 72%),
+    radial-gradient(85% 65% at 58% 100%, var(--mesh1) 0%, transparent 74%),
+    radial-gradient(60% 50% at 8% 78%,   var(--mesh2) 0%, transparent 70%),
+    var(--bg2);
+  filter:saturate(1.15);
+}
+/* Vignette rather than a flat wash — a flat one eats the mesh entirely.
+   Which way it darkens is a theme decision: on a light palette it has to
+   lighten instead, or the dark ink lands on a darkened blob. */
+#stage::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:var(--vignette);
+}
+
+#body{ z-index:2; justify-content:space-between; }
+
+.masthead{ display:flex;align-items:center;justify-content:space-between; }
+#kicker{
+  font-size:21px;letter-spacing:.3em;text-transform:uppercase;
+  font-weight:700;color:var(--on-field);opacity:.92;
+}
+.idx{ font-size:20px;color:var(--on-field);opacity:.6;letter-spacing:.16em; }
+
+#quoteWrap{ flex:0 1 auto; }
+#mark{ display:none; }
+
+#quote{
+  color:var(--on-plate);
+  font-size:calc(var(--size-quote) * 1.06);
+  line-height:1.36;
+}
+
+.colophon{ display:flex;flex-direction:column;gap:10px; }
+#speaker{ font-size:35px;font-weight:700;color:var(--on-field); }
+#title{ font-size:24px;color:var(--on-field);opacity:.82;letter-spacing:.04em; }
+
+#bar{ background:var(--on-field);opacity:.8;height:8px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div id="body">
+    <div class="masthead">
+      <img id="logo" class="logo" alt="">
+      <div id="kicker"></div>
+      <div class="idx">01</div>
+    </div>
+
+    <div id="quoteWrap">
+      <div id="mark"></div>
+      <div id="quote"></div>
+    </div>
+
+    <div class="colophon">
+      <div id="speaker"></div>
+      <div id="title"></div>
+    </div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

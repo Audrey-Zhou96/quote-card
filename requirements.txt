@@ -1,0 +1,12 @@
+# 渲染要用的三个 Python 包。
+#   pip install -r requirements.txt
+#   playwright install chromium      # 浏览器本体不在 pip 里，要单独下
+#
+# ffmpeg 不是 pip 包，是系统程序：
+#   Windows  winget install Gyan.FFmpeg
+#   macOS    brew install ffmpeg
+#   Linux    sudo apt install ffmpeg
+
+pillow>=10.0
+playwright>=1.40
+faster-whisper>=1.0

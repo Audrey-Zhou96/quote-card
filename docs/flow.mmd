@@ -1,0 +1,45 @@
+flowchart TD
+    S([开始 · 一条演讲金句]) --> D["0 · doctor 检查<br/>ffmpeg · playwright<br/>whisper · 字体<br/>缺件现在补"]
+
+    subgraph ASK["  1 - 7b · 一次问清"]
+        direction LR
+        Q0["1 · 静态图<br/>还是动态视频？"]
+        G["2 · gallery<br/>静态：6 模板铺开"]
+        VG["3 · videogallery<br/>视频：6 模板各 12 秒"]
+        Q1["4 · 挑哪个？<br/>选一个 / 全出最后再挑"]
+        Q2["5 · 尺寸？<br/>3:4 竖版 / 1:1 方卡<br/>9:16 全屏"]
+        Q3["6 · 明暗？<br/>浅底（主色满版）/ 深底"]
+        Q4["7 · 品牌色 · 字体 · 图片<br/>theme 里有就复用，没有就问一次"]
+        Q5["7b · 要 logo？<br/>放左上角<br/>浅底配深色 logo，深底配白色 logo"]
+        Q0 --> G --> VG --> Q1 --> Q2 --> Q3 --> Q4 --> Q5
+    end
+
+    D --> Q0
+
+    CK["10 · 排版检查<br/>check（静态）· fit（视频）<br/>字号定多少 · 画面填不填得满<br/>logo 颜色配不配"]
+
+    Q5 -->|"静态"| ST["8a · 静态内容<br/>quote（≤ 120 字符）<br/>speaker · title · 场合"]
+    Q5 -->|"动态"| AU["8b · 动态内容<br/>音频 · speaker · title · 场合"]
+    AU --> W["9a · whisper 转写<br/>→ cues.json"]
+    W --> REV["9b · 用户校对字幕稿<br/>删口误 / 口癖<br/>空行 = 删掉这条字幕"]
+    REV --> CK
+    ST --> CK
+
+    CK -->|"装不下 / 太空"| FIX["回 8 砍文案<br/>或调 keepLines"]
+    FIX --> ST
+    CK -->|"装得下"| RENDER["11 · 渲染<br/>static / video / both<br/>→ out/&lt;job 名&gt;/"]
+    RENDER --> SAVE["12 · 归档<br/>content/&lt;ID&gt;/materials/"]
+
+    classDef start fill:#2D3748,stroke:#2D3748,color:#FFFFFF;
+    classDef decision fill:#FFFFFF,stroke:#4A5568,color:#1A202C,stroke-width:2px;
+    classDef step fill:#EDF2F7,stroke:#4A5568,color:#1A202C;
+    classDef edit fill:#FEEBC8,stroke:#4A5568,color:#1A202C;
+    classDef out fill:#C6F6D5,stroke:#4A5568,color:#1A202C,stroke-width:2px;
+
+    class S start;
+    class Q0,Q1,Q2,Q3,Q4,Q5 decision;
+    class D,G,VG,AU,W,ST,REV,RENDER,SAVE step;
+    class CK,FIX edit;
+    class RENDER,SAVE out;
+
+    style ASK fill:#FFFFFF,stroke:#A0AEC0,stroke-width:1.5px

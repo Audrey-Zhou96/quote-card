@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* BOLDBLOCK — full-bleed brand colour, quote reversed out of it.
+   Highest-impact template; use when the line is short and declarative. */
+
+#stage{ background:var(--accent); }
+#bg{ display:none; }
+
+#body{ justify-content:space-between; }
+
+#kicker{
+  font-size:22px;letter-spacing:.36em;text-transform:uppercase;
+  font-weight:700;color:var(--on-field);opacity:.72;
+  align-self:flex-start;
+  border-bottom:3px solid currentColor;padding-bottom:12px;
+}
+.masthead .idx{
+  position:absolute;top:var(--pad);right:var(--pad);
+  font-size:22px;font-weight:700;color:var(--on-field);opacity:.5;letter-spacing:.14em;
+}
+
+#quoteWrap{ flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center; }
+#mark{ display:none; }
+
+#body{ padding:calc(var(--pad) * .82); }
+
+#quote{
+  color:var(--on-plate);
+  /* YaHei has no 900 — asking for it just makes Chromium synthesise a smear. */
+  font-weight:700;
+  /* quote should dominate the frame, so push well past the theme's base size */
+  font-size:calc(var(--size-quote) * 1.42);
+  /* CLREQ: Chinese sets at 0 tracking (密排). The tension here comes from
+     size and weight, not from squeezing the glyphs together. */
+  letter-spacing:0;
+  line-height:1.24;
+}
+
+.colophon{ display:flex;align-items:baseline;gap:20px;flex-wrap:wrap; }
+#speaker{
+  font-size:34px;font-weight:900;color:var(--on-field);letter-spacing:.01em;
+}
+#title{
+  font-size:24px;color:var(--on-field);opacity:.7;letter-spacing:.05em;
+}
+
+#bar{ background:var(--on-field);opacity:.55;height:8px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div id="body">
+    <div class="masthead">
+      <img id="logo" class="logo" alt="">
+      <div id="kicker"></div>
+      <div class="idx">01</div>
+    </div>
+
+    <div id="quoteWrap">
+      <div id="mark">&ldquo;</div>
+      <div id="quote"></div>
+    </div>
+
+    <div class="colophon">
+      <div id="speaker"></div>
+      <div id="title"></div>
+    </div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

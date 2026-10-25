@@ -1,0 +1,20 @@
+{
+  "duration": 12.252,
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 2.62,
+      "text": "The hard problems were never the interesting ones."
+    },
+    {
+      "start": 3.61,
+      "end": 6.93,
+      "text": "We built the boring part so you can build the interesting part."
+    },
+    {
+      "start": 7.95,
+      "end": 11.21,
+      "text": "Good infrastructure is invisible until the moment it is missing."
+    }
+  ]
+}

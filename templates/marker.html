@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* MARKER — the "screenshot-worthy" one. Quote with accent key-phrases
+   highlighted, an underline scribble, on paper or a photo.
+   Works with no background image; set tokens.bgImage and it becomes a
+   hand-annotated photo instead. */
+
+#bg{ z-index:0; }
+#stage::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:var(--bg-grad, linear-gradient(165deg, var(--bg) 0%, var(--bg2) 100%));
+}
+#bg{ z-index:1; }
+
+/* Right-aligned on purpose: every other template sets its type flush left,
+   and a batch that mixes the two reads as designed rather than templated. */
+#body{ justify-content:space-between; text-align:right; }
+#quote{ text-align:right; }
+.colophon{ align-items:flex-end; text-align:right; }
+
+.masthead{ display:flex;align-items:center;justify-content:space-between; }
+#kicker{
+  font-size:21px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+}
+.idx{ font-size:20px;color:var(--ink-soft);letter-spacing:.16em; }
+
+#quoteWrap{ flex:0 1 auto;position:relative; }
+#mark{ display:none; }
+
+#quote{
+  font-size:calc(var(--size-quote) * 1.02);
+  line-height:1.5;
+}
+
+/* `key` wraps the phrases worth stopping on; runtime marks them up so you can
+   tag them in the job file rather than hand-editing HTML. */
+.key{
+  background:linear-gradient(180deg,
+      transparent 12%, var(--accent2) 12%, var(--accent2) 88%, transparent 88%);
+  color:var(--on-accent2);
+  padding:0 .06em;
+  border-radius:.04em;
+  /* keeps the wash from breaking at line ends when the phrase wraps */
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+
+.underline{
+  display:block;width:min(420px,62%);height:16px;margin-top:26px;
+  margin-left:auto;                 /* this template is right-aligned */
+  color:var(--accent);
+}
+.underline path{
+  fill:none;stroke:currentColor;stroke-width:7;
+  stroke-linecap:round;
+}
+.underline .s1{ stroke-dasharray:100; stroke-dashoffset:0; }
+
+.colophon{ display:flex;flex-direction:column;gap:10px; }
+#speaker{ font-size:35px;font-weight:700;color:var(--on-field); }
+#title{ font-size:24px;color:var(--ink-soft);letter-spacing:.04em; }
+
+#bar{ height:8px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div id="body">
+    <div class="masthead">
+      <img id="logo" class="logo" alt="">
+      <div id="kicker"></div>
+      <div class="idx">01</div>
+    </div>
+
+    <div id="quoteWrap">
+      <div id="mark"></div>
+      <div id="quote"></div>
+      <svg class="underline" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="100" class="s1"
+              d="M2 11 C 18 4, 34 13, 50 8 S 82 3, 98 9" />
+      </svg>
+    </div>
+
+    <div class="colophon">
+      <div id="speaker"></div>
+      <div id="title"></div>
+    </div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

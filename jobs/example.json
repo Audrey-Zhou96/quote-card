@@ -1,0 +1,35 @@
+{
+  "_note": "Copy this file per quote. Only quote / speaker / title / audio really change. Everything in here is fictional: the voice is a synthetic placeholder, the wordmark was drawn by the tool, and the name is the canonical placeholder. The photo behind photoframe (assets/demo-photo.jpg) is a real speaker shot — it is the default background photoframe falls back to when a job brings no image of its own.",
+
+  "name": "example-quote",
+  "template": "editorial",
+  "theme": "neutral",
+  "ratio": "3:4",
+  "scale": 2,
+
+  "quote": "The hard problems were never the interesting ones.",
+  "speaker": "Alex Doe, Platform Engineer",
+  "title": "Engineering All-Hands 2026",
+  "kicker": "Platform Notes",
+  "logo": "../assets/demo/logo-dark.png",
+  "logoOnDark": "../assets/demo/logo-white.png",
+  "highlight": ["never the interesting ones"],
+
+  "tokens": {},
+
+  "audio": "../assets/demo/speech.mp3",
+  "cues": "../assets/demo/speech_cues.json",
+  "outDir": "../out",
+
+  "video": {
+    "fps": 30,
+    "ratios": ["3:4"],
+    "start": 0,
+    "popMs": 280,
+    "lead": 0.05,
+    "accumulate": true,
+    "keepLines": 4,
+    "density": "compact",
+    "crf": 19
+  }
+}

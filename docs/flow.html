@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>quote-card 制作流程</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F7F9FB;color:#1A202C;
+       font:19px/1.45 "Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+  .wrap{display:inline-block;padding:26px 30px;max-width:2200px}
+
+  .node{border:2px solid #4A5568;border-radius:12px;padding:11px 20px;
+        background:#EDF2F7;text-align:center;display:inline-block}
+  .node span{display:block;font-size:16px;color:#4A5568;margin-top:2px}
+  .start{background:#2D3748;color:#fff;border-color:#2D3748;border-radius:30px;
+         font-size:21px;padding:10px 30px}
+  .dec{background:#fff}
+  .edit{background:#FEEBC8}
+  .out{background:#C6F6D5}
+
+  .a{text-align:center;color:#4A5568;font-size:21px;line-height:1;padding:6px 0}
+  .a.h{display:inline-block;padding:0 6px}
+  .ctr{text-align:center}
+
+  .band{border:2px dashed #A0AEC0;border-radius:16px;padding:16px 18px 18px;
+        position:relative;background:#fff}
+  .band b{position:absolute;top:-13px;left:20px;background:#F7F9FB;
+        padding:0 10px;color:#4A5568;font-size:16px}
+  .row{display:flex;align-items:center;justify-content:center;gap:6px;
+       flex-wrap:wrap;max-width:1700px;margin:0 auto}
+  .band .node{font-size:17px;padding:9px 14px}
+  .band .node span{font-size:14px}
+
+  .br{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:stretch;
+      max-width:1500px;margin:0 auto}
+  .col{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .grow{flex:1}
+  .tag{font-size:16px;color:#4A5568}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
+         max-width:1000px;margin:0 auto}
+  .loop{border:2px solid #4A5568;border-radius:12px;padding:10px 18px;
+        background:#FEEBC8;font-size:18px;text-align:center;align-self:start}
+  .plain{color:#4A5568;font-size:17px;text-align:center}
+
+  .foot{margin-top:24px;font-size:16px;color:#4A5568;text-align:center}
+</style></head>
+<body>
+<div class="wrap">
+
+  <div class="ctr">
+    <div class="node start">开始 · 一条演讲金句</div>
+    <div class="a">↓</div>
+    <div class="node">0 · doctor 检查
+      <span>ffmpeg · playwright · whisper · 字体　（缺件现在补）</span></div>
+  </div>
+
+  <div class="a">↓</div>
+
+  <div class="band">
+    <b>1 – 7b · 一次问清</b>
+    <div class="row">
+      <div class="node dec">1 · 静态图<br>还是动态视频？</div>
+      <div class="a h">→</div>
+      <div class="node">2 · gallery<span>静态：6 模板铺开</span></div>
+      <div class="a h">→</div>
+      <div class="node">3 · videogallery<span>视频：6 模板各 12 秒</span></div>
+      <div class="a h">→</div>
+      <div class="node dec">4 · 挑哪个？<span>选一个 / 全出最后再挑</span></div>
+      <div class="a h">→</div>
+      <div class="node dec">5 · 尺寸？<span>3:4 竖版 / 1:1 方卡 / 9:16 全屏</span></div>
+      <div class="a h">→</div>
+      <div class="node dec">6 · 明暗？<span>浅底（主色满版）/ 深底</span></div>
+      <div class="a h">→</div>
+      <div class="node dec">7 · 品牌色 · 字体 · 图片<span>theme 里有就复用，没有就问一次</span></div>
+      <div class="a h">→</div>
+      <div class="node dec">7b · 要 logo？<span>放左上角：浅底配深色 logo，深底配白色 logo</span></div>
+    </div>
+  </div>
+
+  <div class="a">↓</div>
+
+  <div class="br">
+    <div class="col">
+      <div class="tag">静态</div>
+      <div class="node">8a · 静态内容
+        <span>quote（≤ 120 字符）· speaker · title · 场合</span></div>
+      <div class="a">↓</div>
+      <div class="grow"></div>
+    </div>
+    <div class="col">
+      <div class="tag">动态</div>
+      <div class="node">8b · 动态内容
+        <span>音频 · speaker · title · 场合</span></div>
+      <div class="a">↓</div>
+      <div class="node">9 · 转写 + 校对字幕稿
+        <span>whisper → cues.json；删口误口癖，删掉的行不上屏</span></div>
+      <div class="grow"></div>
+    </div>
+  </div>
+
+  <div class="a">↓</div>
+
+  <div class="ctr">
+    <div class="node edit">10 · 排版检查<span>check（静态）· fit（视频）：字号定多少、画面填不填得满、logo 颜色配不配</span></div>
+  </div>
+
+  <div class="a">↓</div>
+
+  <div class="split">
+    <div class="loop">装不下 / 画面太空<br>→ 回 8 砍文案或调 keepLines<br>（循环）</div>
+    <div class="col">
+      <div class="plain">装得下 ↓</div>
+      <div class="node out">11 · 渲染<span>static / video / both</span></div>
+      <div class="a">↓</div>
+      <div class="node out">12 · 归档<span>content/&lt;ID&gt;/materials/</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    六个模板就是六个视频模板 —— 模板只负责画，静态和视频共用同一份标记。<br>
+    转写稿改完不用重转写，直接重跑 video；静态 / 动态两条分支只有"内容来源"不同，其余输入共用。<br>
+    产物落在一个 job 一个文件夹：<code>out/&lt;job 名&gt;/{stills,videos,gallery.html,videogallery.html}</code>
+  </div>
+
+</div>
+</body></html>

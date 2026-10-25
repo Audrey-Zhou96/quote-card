@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* SPLIT — two-tone colour block. A saturated upper field carries the quote,
+   a quiet lower field carries the attribution. A colour block guarantees
+   contrast, which makes this the safe default when the quote is long. */
+
+#bg{ display:none; }
+#stage{ background:var(--bg2); }
+
+#body{ padding:0; display:block; }
+
+.pane{
+  height:100%;
+  display:flex;flex-direction:column;
+}
+/* The quote pane is the card's main field — the biggest colour area on the
+   page. The quote itself may sit on a panel inside it. */
+.pane--quote{
+  height:var(--pane-quote, 80%);
+  background:var(--bg);
+  /* The extra top padding is clearance for the kicker, which sits at the
+     stage's own padding. Without it the quote's little mark collides with
+     the kicker as soon as the text fills the pane. */
+  padding:calc(var(--pad) + 36px) var(--pad) var(--pad);
+  justify-content:center;
+}
+.pane--meta{
+  height:calc(100% - var(--pane-quote, 80%));
+  padding:0 var(--pad) var(--pad);
+  justify-content:flex-end;
+  gap:12px;
+  border-top:0;
+}
+
+#kicker{
+  position:absolute;top:var(--pad);left:var(--pad);
+  font-size:21px;letter-spacing:.32em;text-transform:uppercase;
+  font-weight:700;color:var(--on-field);opacity:.7;
+}
+/* The logo takes the kicker's slot. A wordmark is taller than a line of
+   21px caps, so the quote pane has to give it more headroom. The runtime
+   measures the decoded logo and publishes its height as --logo-real-h —
+   the box in the tokens is only a cap, and the real height depends on the
+   wordmark's own proportions. */
+#logo{
+  position:absolute;top:var(--pad);left:var(--pad);z-index:3;
+}
+body.has-logo .pane--quote{
+  padding-top:calc(var(--pad) + var(--logo-real-h, 56px) + 6px);
+}
+.idx{
+  position:absolute;top:var(--pad);right:var(--pad);
+  font-size:22px;font-weight:700;color:var(--on-field);opacity:.45;letter-spacing:.14em;
+}
+
+/* The quote pane is a fixed 62% of the frame, so the quote area has to be
+   bounded by it — otherwise a long quote grows the wrap instead of the quote
+   shrinking, and the text spills out of the colour block. */
+#quoteWrap{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;justify-content:center;
+}
+#mark{
+  display:block;width:88px;height:6px;
+  background:var(--on-field);opacity:.65;margin-bottom:38px;
+}
+#quote{
+  color:var(--on-plate);
+  font-size:calc(var(--size-quote) * 1.04);
+  font-weight:700;
+  line-height:1.34;
+}
+
+#speaker{ font-size:36px;font-weight:700;color:var(--ink);letter-spacing:.02em; }
+#title{ font-size:24px;color:var(--ink);opacity:.72;letter-spacing:.04em; }
+
+#bar{ background:var(--accent);height:9px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div class="pane pane--quote">
+    <img id="logo" class="logo" alt="">
+    <div id="kicker"></div>
+    <div class="idx">01</div>
+    <div id="quoteWrap">
+      <div id="mark"></div>
+      <div id="quote"></div>
+    </div>
+  </div>
+
+  <div class="pane pane--meta">
+    <div id="speaker"></div>
+    <div id="title"></div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

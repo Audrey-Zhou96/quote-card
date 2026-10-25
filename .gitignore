@@ -1,0 +1,30 @@
+# 产物 —— 都是能重跑出来的，不进仓库
+out/
+.cache/
+__pycache__/
+*.pyc
+
+# 品牌素材 —— 不进仓库。
+# _brand/ 是真品牌的配色、logo、音频和演讲素材；
+# themes/_brand/ + assets/_brand/ 一起走，删掉 themes/_brand/ 时顺手动 assets/_brand/。
+themes/_brand/
+assets/_brand/
+
+# 本地素材 —— 音频和字幕稿是私人的
+assets/_*
+assets/*.wav
+assets/*.mp3
+assets/*.m4a
+assets/*_cues.json
+
+# 自己的 job —— 只留 example.json 当模板
+jobs/*
+!jobs/example.json
+
+# 注意：assets/demo/（示例 logo、示例音频、示例字幕稿）是要进仓库的 ——
+# 它们是脱敏之后给别人的示例，不是私人物品。
+#
+# assets/demo-photo.jpg 也在仓库里：它是 photoframe 兜底的默认照片，
+# 现在是一张真人演讲现场照，不是画出来的风景。发布前自己确认一下
+# 这张图的授权 —— 换成自己拍的、或自己有权使用的照片最省事。
+

@@ -1,0 +1,185 @@
+/* Shared anatomy for every template. Templates override, they don't re-derive.
+   A template only has to ship the ids listed at the top of runtime.js. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 1080px;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+#stage {
+  position: relative;
+  width: 1080px;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-grad, var(--bg));
+  isolation: isolate;
+}
+
+/* ---------------------------------------------------------------- background */
+
+#bg { position: absolute; inset: 0; z-index: 0; }
+#bgImg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+#scrim { position: absolute; inset: 0; }
+
+/* Solid/gradient ground for templates that don't use a photo. Templates that
+   want a gradient paint it on #stage::before instead. */
+
+/* --------------------------------------------------------------------- body */
+
+#body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: var(--pad);
+  display: flex;
+  flex-direction: column;
+}
+
+#quote {
+  font-family: var(--font-quote);
+  font-weight: var(--weight-quote);
+  font-size: var(--size-quote);
+  line-height: var(--line-quote);
+  letter-spacing: var(--tracking-quote);
+  /* the quote sits on the panel, so it takes the panel's ink — white on a
+     deep panel, or dark on a bright one */
+  color: var(--on-plate, var(--ink));
+  /* The panel. It wraps the text rather than the whole frame, so the
+     template's ground colour stays the biggest area on the card. */
+  background: var(--plate, transparent);
+  padding: var(--plate-pad, 0px);
+  border-radius: var(--plate-radius, 0px);
+  /* A keyline drawn outside the glyphs. Chromium's -webkit-text-stroke
+     straddles the letter edge and eats the fill, so a fat face comes out
+     visibly thinner — eight zero-blur shadows build the outline instead,
+     outside the letter where it belongs. */
+  --_ow: var(--quote-stroke-width, 0px);
+  --_st: var(--quote-stroke, transparent);
+  text-shadow:
+    var(--_ow) 0 0 var(--_st),
+    calc(var(--_ow) * -1) 0 0 var(--_st),
+    0 var(--_ow) 0 var(--_st),
+    0 calc(var(--_ow) * -1) 0 var(--_st),
+    calc(var(--_ow) * .7) calc(var(--_ow) * .7) 0 var(--_st),
+    calc(var(--_ow) * -.7) calc(var(--_ow) * .7) 0 var(--_st),
+    calc(var(--_ow) * .7) calc(var(--_ow) * -.7) 0 var(--_st),
+    calc(var(--_ow) * -.7) calc(var(--_ow) * -.7) 0 var(--_st),
+    var(--quote-shadow, 0 0 0 transparent);
+  /* Chinese breaks between characters by default; these keep latin words
+     intact and stop the browser breaking before a closing bracket. */
+  word-break: normal;
+  line-break: strict;
+  overflow-wrap: break-word;
+  hyphens: none;
+  /* balances ragged headline lines — Chromium only, which is all we render in */
+  text-wrap: balance;
+  /* shrink-to-fit so a template can centre the quote against its mark/frame
+     instead of letting it stretch to the full column */
+  flex: 0 1 auto;
+  min-height: 0;
+}
+
+/* Latin sets by different rules than Chinese. CLREQ treats positive tracking
+   as correct for CJK body text (密排); a Latin display face wants the opposite —
+   a touch of negative tracking so large type doesn't look loose, and tighter
+   leading because ascenders/descenders carry more of the block. */
+body[data-lang="en"] #quote,
+body[data-lang="en"] #mark,
+body[data-lang="en"] #speaker {
+  letter-spacing: -0.018em;
+  line-height: 1.14;
+  line-break: auto;
+}
+body[data-lang="en"] #title,
+body[data-lang="en"] #kicker {
+  letter-spacing: 0.02em;
+}
+/* An em dash / straight quote reads as a typo in a set English line. */
+body[data-lang="en"] .key { border-radius: .06em; }
+
+.cue {
+  display: block;
+  margin: 0.12em 0;
+  transform-origin: 50% 60%;
+  will-change: transform, opacity;
+}
+.cue.is-current { color: var(--on-plate, var(--ink)); }
+.cue.is-spent { color: var(--on-plate-soft, var(--ink-soft)); }
+
+/* Video layouts carry more lines on screen; tighten rather than overflow. */
+body[data-density="compact"] #quote { line-height: 1.24; }
+body[data-density="compact"] .cue { margin: 0.06em 0; }
+
+#mark { color: var(--accent); line-height: 0.7; }
+
+/* The big quote mark. It is the one ornament that says "this is a quote"
+   without adding a word, so it lives in the corner the index would use — the
+   two are mutually exclusive (the runtime drops the index when this is on).
+
+   Layering: z-index 2 puts it above the ground washes (the templates paint
+   those at 0 and 1) and below the type, which #quoteWrap lifts to 3. The
+   quote is allowed to run over it — at 13% the mark reads as texture, not
+   as something the text has to dodge. */
+.qmark {
+  position: absolute;
+  top: var(--qmark-inset, 70px);
+  right: var(--qmark-inset, 70px);
+  font-family: var(--qmark-font, Georgia, "Times New Roman", serif);
+  font-weight: 400;
+  font-size: var(--qmark-size, 150px);
+  line-height: 0.72;
+  color: var(--qmark-color, var(--on-plate));
+  opacity: var(--qmark-opacity, 0.13);
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+}
+#quoteWrap { position: relative; z-index: 3; }
+
+/* ------------------------------------------------------------------- logo
+   The brand logo takes the kicker's slot in the top-left corner. When one
+   is set the kicker text goes away — a wordmark and a line of copy in the
+   same corner is two identities fighting for one spot, and the logo is the
+   one that has to be there.
+
+   The logo file is picked by the user, not by the theme, so the theme
+   cannot know whether it is the white or the dark variant. That is a
+   workflow question (dark card -> white logo, light card -> dark logo),
+   and `check` is where it gets caught. */
+
+.logo {
+  display: none;
+  max-width: var(--logo-w, 160px);
+  max-height: var(--logo-h, 56px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+  align-self: center;
+  flex: 0 0 auto;
+}
+body.has-logo .logo { display: block; }
+body.has-logo #kicker { display: none; }
+
+#speaker, #title, #kicker {
+  font-family: var(--font-meta);
+  text-wrap: pretty;
+  /* meta lives on the field, not on the quote's panel — so it takes the
+     field ink, which the theme can point somewhere else than the body ink */
+  color: var(--on-field, var(--ink));
+}
+
+#bar {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 6px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 3;
+}

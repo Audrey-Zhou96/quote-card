@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-qc-ready="0" data-ground="dark">
+<head>
+<meta charset="utf-8">
+<!--QC_BASE-->
+<style>
+/* PHOTOFRAME — the "put your own image here" template.
+   The veil is a 3-stop gradient built from --bg in tokens.py, so whatever
+   photo gets uploaded stays readable without hand-tuning. */
+
+#bg{ z-index:0; }
+/* No ::before — a ground gradient would paint over the photo. */
+
+#body{ justify-content:space-between; }
+
+.masthead{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-meta);
+}
+#kicker{
+  font-size:21px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+  padding:10px 20px;border:1.5px solid var(--accent);border-radius:999px;
+}
+.masthead .idx{ font-size:20px;color:var(--on-field);letter-spacing:.16em;opacity:.75; }
+
+#quoteWrap{ flex:0 1 auto; }
+#mark{ display:none; }
+
+#quote{
+  color:var(--on-plate);
+  font-size:calc(var(--size-quote) * .96);
+}
+
+#speaker{
+  font-size:36px;font-weight:700;color:var(--on-field);
+  text-shadow:0 2px 16px rgba(0,0,0,.5);
+}
+#speaker::before{
+  content:"";display:inline-block;width:44px;height:5px;
+  background:var(--accent);margin-right:16px;vertical-align:middle;
+  border-radius:3px;
+}
+#title{
+  font-size:25px;color:var(--on-field);opacity:.82;
+  margin-top:12px;padding-left:60px;
+  text-shadow:0 2px 16px rgba(0,0,0,.5);
+}
+
+#bar{ height:9px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"><div id="bgImg"></div><div id="scrim"></div></div>
+  <div class="qmark">&ldquo;</div>
+
+  <div id="body">
+    <div class="masthead">
+      <img id="logo" class="logo" alt="">
+      <div id="kicker"></div>
+      <div class="idx">01</div>
+    </div>
+
+    <div id="quoteWrap">
+      <div id="mark">&ldquo;</div>
+      <div id="quote"></div>
+    </div>
+
+    <div class="colophon">
+      <div id="speaker"></div>
+      <div id="title"></div>
+    </div>
+  </div>
+
+  <div id="bar"></div>
+</div>
+<!--QC_CONFIG-->
+<!--QC_RUNTIME-->
+</body>
+</html>

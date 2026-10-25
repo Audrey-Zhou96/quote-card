@@ -1,0 +1,54 @@
+{
+  "_note": "通用中性主题 —— 谁 clone 下来都能直接跑。build.py 只认 token 名，换品牌就是改这里的色值（见 themes/README.md）。",
+  "bg": "#0E0E12",
+  "bg2": "#1C1C26",
+  "ink": "#F6F4F0",
+  "inkSoft": "#8E8E9C",
+  "accent": "#FF4D2E",
+  "accent2": "#FFC53D",
+  "rule": "#2A2A33",
+  "plate": "transparent",
+  "platePad": "0px",
+  "plateRadius": "0px",
+  "onPlate": "#F6F4F0",
+  "onPlateSoft": "#8E8E9C",
+  "onField": "#F6F4F0",
+  "onAccent2": "#0E0E12",
+  "quoteFont": "Microsoft YaHei",
+  "metaFont": "Microsoft YaHei",
+  "quoteWeight": 700,
+  "quoteSize": 72,
+  "quoteMinSize": 42,
+  "quoteTracking": 0,
+  "quoteLeading": 1.38,
+  "pad": 100,
+  "density": "regular",
+  "overrides": {
+    "boldblock": {
+      "onPlate": "#0E0E12",
+      "onPlateSoft": "#0E0E12",
+      "onField": "#0E0E12",
+      "inkSoft": "#0E0E12",
+      "quoteGround": "#FF4D2E",
+      "fieldGround": "#FF4D2E",
+      "inkGround": "#0E0E12"
+    },
+    "split": {
+      "bg": "#FF4D2E",
+      "bg2": "#0E0E12",
+      "onPlate": "#0E0E12",
+      "onPlateSoft": "#0E0E12",
+      "onField": "#0E0E12",
+      "inkSoft": "#0E0E12",
+      "quoteGround": "#FF4D2E",
+      "fieldGround": "#FF4D2E",
+      "inkGround": "#0E0E12"
+    },
+    "gradient": {
+      "quoteShadow": "0 2px 30px rgba(0,0,0,.35)"
+    },
+    "photoframe": {
+      "quoteShadow": "0 2px 24px rgba(0,0,0,.45)"
+    }
+  }
+}
