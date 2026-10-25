@@ -1,12 +1,15 @@
 # quote-card
 
-把一句金句做成金句卡：**一张静态图**，或者**一条卡着语音逐句上屏的竖版短视频**。
+品牌/公关实用技能之制作quote card。把创始团队在公开场合的演讲切片转化为贴合品牌叙事的quote card。支持输入自定义品牌视觉、logo、演讲照片等品牌资产，共有静态卡片和动态卡片两种输出模式，6种样式可选，动态卡片输出结果为演讲音频+实时滚动字幕。
 
 ---
 
 ## About
 
-一句金句（或一段音频）→ 一份 job 文件 → 出图、出片。
+品牌金句（或一段音频）→ 一份 job 文件 → 出图、出片。
+
+中间那一步是"描述这张卡长什么样的 JSON"。**用 agent 的话它替你写，用命令行的话你自己写**
+（见下面的「使用方法」）。
 
 - **输入** — 一句 quote（静态图），或一段音频 + 字幕时间轴（视频）
 - **输出** — PNG 静态卡，MP4 竖版短视频
@@ -109,9 +112,44 @@ quote-card doctor
 
 ## 使用方法
 
-### 1 · 写一份 job
+### 用法一：交给 agent（推荐）
 
-复制 `jobs/example.json`，改几个字段就够：
+**这个工具包成 skill，就是为了让别人替你写那份 job。** 你只回答问题、只校对字幕，
+JSON 和命令它来跑。
+
+装好之后在 Claude Code 里说一句"用 quote-card 把这段音频做成金句卡"，agent 会：
+
+| 它做的事 | 你要做的事 |
+|---|---|
+| 问清楚：出静态图还是视频？配色用哪套？出什么画幅？有没有 logo？ | 回答这几个问题（只问一次） |
+| 先跑 `gallery` / `videogallery`，把六个模板铺开 | 挑一个 |
+| 替你写好 `jobs/<name>.json` | 不用管 |
+| 音频转写成字幕，打出来给你看 | **校对字幕** —— whisper 会写进口癖和错字，这步别省 |
+| `check` / `fit` 量一遍排版，再渲染出片 | 看结果 |
+
+装法：把仓库放进 skills 目录（`~/.claude/skills/quote-card`），命令都在那个目录里跑。
+
+```bash
+# macOS / Linux / Git Bash
+git clone https://github.com/Audrey-Zhou96/quote-card.git ~/.claude/skills/quote-card
+
+# Windows（PowerShell / cmd）
+git clone https://github.com/Audrey-Zhou96/quote-card.git %USERPROFILE%\.claude\skills\quote-card
+```
+
+agent 侧的完整流程见 [SKILL.md](SKILL.md) 和 [docs/WORKFLOW.md](docs/WORKFLOW.md)。
+
+### 用法二：自己跑命令
+
+不用 agent 也行 —— job 就是一份普通 JSON，自己写、自己跑。命令都在仓库目录里跑：
+
+```bash
+cd quote-card
+```
+
+#### 1 · 写一份 job
+
+复制 `jobs/example.json`，改几个字段就够（agent 替你写的也是这么一份）：
 
 ```json
 {
@@ -140,13 +178,13 @@ quote-card doctor
 | `tokens.bgImage` | `photoframe` 的底图 |
 | `ratio` / `video.ratios` | 出图和出片可以是不同画幅 |
 
-### 2 · 出图
+#### 2 · 出图
 
 ```bash
 python build.py static jobs/my-quote.json
 ```
 
-### 3 · 出片
+#### 3 · 出片
 
 ```bash
 # 音频 → 带时间轴的字幕（只跑一次，之后复用）
@@ -161,7 +199,7 @@ python build.py video jobs/my-quote.json
 
 `cues.json` 是普通 JSON，可以直接手改：删一行 = 不上屏，改 `text` = 改字幕，改 `start` / `end` = 字幕跟着挪。**改完不用重新转写。**
 
-### 渲染前量一遍
+#### 渲染前量一遍
 
 字号自动缩是**不报错**的 —— 缩了只会让字变小，溢出了也不提示。这两个命令就是把它提前说出来：
 
@@ -170,7 +208,7 @@ python build.py check jobs/my-quote.json   # 静态：这句话排得下吗？lo
 python build.py fit   jobs/my-quote.json   # 视频：这支片子排得下吗？字号定在多少？
 ```
 
-### 命令速查
+#### 命令速查
 
 | 命令 | 干什么 |
 |---|---|
@@ -183,7 +221,7 @@ python build.py fit   jobs/my-quote.json   # 视频：这支片子排得下吗�
 | `videogallery <job> --clip 12` | 六个模板各渲一段 12 秒，同时播放 |
 | `static <job> --preview` | 顺手出一份 HTML，改 token 就能看，不用重跑渲染 |
 
-### 产物
+#### 产物
 
 一个 job 一个文件夹，都在 `out/` 里（`out/` 不进仓库）：
 
@@ -252,8 +290,6 @@ quote-card/
 
 [MIT](LICENSE)。
 
-- 模板内的那张**演讲者照片仅做示意使用**，不代表本人授权商用或形象使用。换成自己的照片最省事。
-- 其余的**使用、改动、分享都随意**，拿去改造成自己的工具完全没问题。
-- 欢迎交流 —— 有想法、改动、或者只是想聊聊怎么排金句，都欢迎。
-
-小红书 **@超导猫薄荷** —— 制作这个工具的人。
+- 模板内内置的**演讲者照片仅做示意使用**，不代表本人授权商用或形象使用。需要替换成自己的照片。
+- 其余的**使用、改动、分享都随意**。
+- 欢迎交流品牌/市场/公关相关。小红书 **@超导猫薄荷** 
