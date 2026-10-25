@@ -114,9 +114,6 @@ quote-card doctor
 
 ### 用法一：交给 agent（推荐）
 
-**这个工具包成 skill，就是为了让别人替你写那份 job。** 你只回答问题、只校对字幕，
-JSON 和命令它来跑。
-
 装好之后在 Claude Code 里说一句"用 quote-card 把这段音频做成金句卡"，agent 会：
 
 | 它做的事 | 你要做的事 |
