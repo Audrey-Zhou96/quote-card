@@ -14,7 +14,7 @@
 
 ## 0 · 先看环境（不用问用户）
 
-还没装依赖的话先看 [README 的安装一节](../README.md#先装依赖) ——
+还没装依赖的话先看 [README 的安装一节](../README.md#如何安装) ——
 Python 3.9+、`pip install pillow playwright faster-whisper`、
 `playwright install chromium`，外加系统里的 ffmpeg。
 
@@ -207,7 +207,7 @@ python build.py videogallery jobs/<job>.json --clip 12
 合并顺序：`DEFAULTS` < 主题 < 主题的 `overrides[模板]` < job 的 `tokens`。
 job 里的 token 优先级最高，改单个模板不用重开一份主题。
 
-完整 token 表见 [README](../README.md#主题配色层)。
+完整 token 表见 [docs/REFERENCE.md](REFERENCE.md#配色token)。
 
 ---
 

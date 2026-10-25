@@ -9,7 +9,7 @@ description: 把一句演讲金句或一段语音做成金句卡：静态图 + �
 
 工具全在本地：Playwright 渲染，ffmpeg 合成，faster-whisper 出时间轴。**没有云端 API，没有账号。**
 
-> 完整流程在 [docs/WORKFLOW.md](docs/WORKFLOW.md)，参数和 token 表在 [README.md](README.md)。
+> 完整流程在 [docs/WORKFLOW.md](docs/WORKFLOW.md)，参数和 token 表在 [docs/REFERENCE.md](docs/REFERENCE.md)。
 > 这份 skill 不带任何人的品牌色 —— 配色、logo、音频都是"接进来"的一层。
 
 ---

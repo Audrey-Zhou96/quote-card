@@ -29,7 +29,7 @@
 cp themes/neutral.json themes/my-brand.json
 ```
 
-**二、改色值**（token 名的意思见 [README](../README.md#配色全部走-token)）
+**二、改色值**（token 名的意思见 [docs/REFERENCE.md](../docs/REFERENCE.md#配色token)）
 
 ```json
 {
